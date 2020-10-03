@@ -12,8 +12,11 @@ public class PieSpot : MonoBehaviour
 
     private void Awake()
     {
-        brokenGlassMask = transform.GetChild(0).GetComponent<SpriteMask>();
-        brokenGlassMask.enabled = false;
+        if (transform.childCount > 0)
+        {
+            brokenGlassMask = transform.GetChild(0).GetComponent<SpriteMask>();
+            brokenGlassMask.enabled = false;
+        }
     }
 
     public void SetCurrentPie(Pie newPie)

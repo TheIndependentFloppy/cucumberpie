@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     public float RoundTime = 30f;
+    public float TimeBetweenRounds = 3f;
 
     private float timer = 0f;
 
@@ -43,6 +44,14 @@ public class RoundManager : MonoBehaviour
                 StopRound();
             }
         }
+        else
+        {
+            timer = Math.Min(timer + Time.deltaTime, TimeBetweenRounds);
+            if (timer.Equals(TimeBetweenRounds))
+            {
+                StartRound();
+            }
+        }
     }
 
     public void StartRound()
@@ -50,6 +59,7 @@ public class RoundManager : MonoBehaviour
         currentRound++;
         timer = 0f;
         GameManager.Instance.GetBunnyManager().StartManager();
+        GameManager.Instance.GetHumansManager().StartManager();
         isInRound = true;
     }
 
@@ -57,7 +67,10 @@ public class RoundManager : MonoBehaviour
     {
         GameManager.Instance.GetBunnyManager().StopManager();
         GameManager.Instance.GetBunnyManager().RemoveAllBunnies();
+        GameManager.Instance.GetHumansManager().StopManager();
+        GameManager.Instance.GetHumansManager().RemoveAllHumans();
         isInRound = false;
+        timer = 0f;
     }
 
     private void InitFirstRound()

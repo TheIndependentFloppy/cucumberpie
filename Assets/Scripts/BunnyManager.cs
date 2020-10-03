@@ -19,12 +19,6 @@ public class BunnyManager : MonoBehaviour
 
     private bool isStarted = false;
 
-    private void Awake()
-    {
-        //debug
-        isStarted = true;
-    }
-
     private void Update()
     {
         if (!isStarted)

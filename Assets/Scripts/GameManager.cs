@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     private BunnyManager bunnyManagerInstance;
     private RoundManager roundManagerInstance;
+    private HumansManager humansManagerInstance;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
 
         bunnyManagerInstance = GetComponentInChildren<BunnyManager>();
         roundManagerInstance = GetComponentInChildren<RoundManager>();
+        humansManagerInstance = GetComponentInChildren<HumansManager>();
     }
 
     public BunnyManager GetBunnyManager()
@@ -33,5 +35,10 @@ public class GameManager : MonoBehaviour
     public RoundManager GetRoundManager()
     {
         return roundManagerInstance;
+    }
+    
+    public HumansManager GetHumansManager()
+    {
+        return humansManagerInstance;
     }
 }
