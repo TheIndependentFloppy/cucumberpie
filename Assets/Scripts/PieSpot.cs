@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PieSpot : MonoBehaviour
 {
     public bool IsProtected = false;
-    public Sprite ProtectionSprite = null;
-    public Sprite NormalSprite = null;
 
     private bool isCurrentProtectionActive = true;
+    private SpriteMask brokenGlassMask;
 
     private Pie currentPie = null;
-    private SpriteRenderer spriteRend = null;
+    //private SpriteRenderer spriteRend = null;
 
     private void Awake()
     {
-        spriteRend = GetComponent<SpriteRenderer>();
-        spriteRend.sprite = IsProtected ? ProtectionSprite : NormalSprite;
+        brokenGlassMask = transform.GetChild(0).GetComponent<SpriteMask>();
+        brokenGlassMask.enabled = false;
     }
 
     public void SetCurrentPie(Pie newPie)
@@ -46,13 +43,13 @@ public class PieSpot : MonoBehaviour
     public void BreakProtection()
     {
         isCurrentProtectionActive = false;
-        spriteRend.sprite = NormalSprite;
+        brokenGlassMask.enabled = true;
     }
 
     public void RepairProtection()
     {
         isCurrentProtectionActive = true;
-        spriteRend.sprite = ProtectionSprite;
+        brokenGlassMask.enabled = false;
     }
 
     private void StealPie()
