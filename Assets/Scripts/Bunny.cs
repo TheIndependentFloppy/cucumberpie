@@ -8,6 +8,11 @@ public class Bunny : MonoBehaviour
     public Sprite DeadSprite = null;
     public Sprite VictorySprite = null;
 
+    public AudioClip Appear;
+    public AudioClip BreakGlass;
+    public AudioClip Outch;
+    public AudioClip Steal;
+
     private Sprite startingSprite = null;
 
     private float timer = 0f;
@@ -18,11 +23,14 @@ public class Bunny : MonoBehaviour
 
     private PieSpot currentSpot = null;
     private SpriteRenderer spriteRend = null;
+    private AudioSource audioSource = null;
 
     private void Awake()
     {
         spriteRend = GetComponent<SpriteRenderer>();
         startingSprite = spriteRend.sprite;
+        audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(Appear);
     }
 
     private void Update()
@@ -41,12 +49,14 @@ public class Bunny : MonoBehaviour
             if (currentSpot.TryStealPie())
             {
                 spriteRend.sprite = VictorySprite;
+                audioSource.PlayOneShot(Steal);
                 StartCoroutine(Leave());
             }
             else
             {
                 timer = 0f;
                 spriteRend.sprite = ActionSprite;
+                audioSource.PlayOneShot(BreakGlass);
                 StartCoroutine(GoBackToPreviousSprite());
             }
         }
@@ -85,6 +95,7 @@ public class Bunny : MonoBehaviour
     {
         if (isLeaving)
             return;
+        audioSource.PlayOneShot(Outch);
         spriteRend.sprite = DeadSprite;
         StartCoroutine(Leave());
     }
