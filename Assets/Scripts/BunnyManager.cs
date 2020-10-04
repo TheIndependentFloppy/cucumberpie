@@ -7,6 +7,8 @@ public class BunnyManager : MonoBehaviour
     
     private List<Bunny> currentBunnies = new List<Bunny>();
 
+    public float TimeBeforeStealing = 1f;
+
     public float MinTimeBeforeSpawn = 1f;
     public float MaxTimeBeforeSpawn = 2f;
 
@@ -48,10 +50,32 @@ public class BunnyManager : MonoBehaviour
         spawnTime = UnityEngine.Random.Range(MinTimeBeforeSpawn, MaxTimeBeforeSpawn);
     }
 
+    public void UpdateFrequency()
+    {
+        MinTimeBeforeSpawn -= StepSpawnByLevel;
+        if (MinTimeBeforeSpawn < MinTime)
+        {
+            MinTimeBeforeSpawn = MinTime;
+        }
+        MaxTimeBeforeSpawn -= StepSpawnByLevel;
+        if (MaxTimeBeforeSpawn < MinTime)
+        {
+            MaxTimeBeforeSpawn = MinTime;
+        }
+        TimeBeforeStealing -= StepBreakByLevel;
+        if (TimeBeforeStealing < MinTime)
+        {
+            TimeBeforeStealing = MinTime;
+        }
+    }
+
     private void SpawnBunnyInRandomSpot()
     {
         List<PieSpot> spots = GetAvailableSpots();
-        SpawnBunny(spots[UnityEngine.Random.Range(0, spots.Count)]);
+        if (spots.Count > 0)
+        {
+            SpawnBunny(spots[UnityEngine.Random.Range(0, spots.Count)]);
+        }
     }
 
     private void SpawnBunny(PieSpot pieSpot)
@@ -59,6 +83,7 @@ public class BunnyManager : MonoBehaviour
         Bunny bunnyPrefab = BunniesPrefabs[UnityEngine.Random.Range(0, BunniesPrefabs.Length)];
 
         Bunny newBunny = Instantiate(bunnyPrefab, pieSpot.transform.position, Quaternion.identity);
+        newBunny.SetTimeStealing(TimeBeforeStealing);
         newBunny.PutInSpot(pieSpot);
         currentBunnies.Add(newBunny);
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5256618215239752707
+--- !u!1 &4306716063977881921
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7740293306155374748}
-  - component: {fileID: 2194772820962020900}
+  - component: {fileID: 3944148652394455094}
+  - component: {fileID: 4088439538595706278}
   m_Layer: 0
-  m_Name: HumansManager
+  m_Name: MoneyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7740293306155374748
+--- !u!4 &3944148652394455094
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5256618215239752707}
+  m_GameObject: {fileID: 4306716063977881921}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.37202322, y: 0.29586294, z: -7.1487556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2194772820962020900
+--- !u!114 &4088439538595706278
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5256618215239752707}
+  m_GameObject: {fileID: 4306716063977881921}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea262b00dfe2504c88ae58cce2d9b50, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c0ae6d2d141b22488c18b293fefcdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HumansPrefabs:
-  - {fileID: 5446763298004053459, guid: 444beffa13e9b4d48acedf2f4ecb4c84, type: 3}
-  HumansSpots: []
-  SpawnPoints: []
-  MinTimeBeforeSpawn: 6
-  MaxTimeBeforeSpawn: 10
-  StepSpawnByLevel: 0.1
-  StepBreakByLevel: 0.1
-  MinTime: 0.001
+  MonyText: {fileID: 0}
+  PiePrice: 12
+  PriceRepair: 33
+  MalusCustomer: 40

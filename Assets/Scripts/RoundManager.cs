@@ -2,11 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
 {
     public float RoundTime = 30f;
     public float TimeBetweenRounds = 3f;
+
+    public Text UIText;
 
     private float timer = 0f;
 
@@ -24,7 +27,11 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        InitFirstRound();
+        GameManager.Instance.GetMoneyManager().HideRepairMenu();
+        UIText.gameObject.SetActive(true);
+        UIText.text = "Day " + (currentRound + 1);
+
+        StartCoroutine(InitFirstRound());
     }
 
     private void Update()
@@ -33,7 +40,8 @@ public class RoundManager : MonoBehaviour
         {
             if (!IsAnyPieLeft())
             {
-                Debug.Log("GameOver");
+                UIText.gameObject.SetActive(true);
+                UIText.text = "Game Over";
                 StopRound();
                 return;
             }
@@ -42,22 +50,32 @@ public class RoundManager : MonoBehaviour
             if (timer.Equals(RoundTime))
             {
                 StopRound();
+                UIText.gameObject.SetActive(true);
             }
         }
-        else
+        /*else
         {
             timer = Math.Min(timer + Time.deltaTime, TimeBetweenRounds);
-            if (timer.Equals(TimeBetweenRounds))
+            if (timer.Equals(TimeBetweenRounds) && !GameManager.Instance.GetMoneyManager().IsInRepairMenu())
             {
-                StartRound();
+
             }
-        }
+        }*/
     }
 
     public void StartRound()
     {
+        UIText.text = "Day " + (currentRound + 1);
+
         currentRound++;
         timer = 0f;
+
+        GameManager.Instance.GetBunnyManager().UpdateFrequency();
+        GameManager.Instance.GetMoneyManager().HideRepairMenu();
+
+        RefillPies();
+
+        UIText.gameObject.SetActive(false);
         GameManager.Instance.GetBunnyManager().StartManager();
         GameManager.Instance.GetHumansManager().StartManager();
         isInRound = true;
@@ -65,6 +83,8 @@ public class RoundManager : MonoBehaviour
 
     public void StopRound()
     {
+        GameManager.Instance.GetMoneyManager().ShowRepairMenu();
+
         GameManager.Instance.GetBunnyManager().StopManager();
         GameManager.Instance.GetBunnyManager().RemoveAllBunnies();
         GameManager.Instance.GetHumansManager().StopManager();
@@ -73,13 +93,14 @@ public class RoundManager : MonoBehaviour
         timer = 0f;
     }
 
-    private void InitFirstRound()
+    private IEnumerator InitFirstRound()
     {
         foreach (PieSpot spot in pieSpots)
         {
             Pie newPie = Instantiate(NormalPiePrefab, spot.transform.position, Quaternion.identity);
             spot.SetCurrentPie(newPie);
         }
+        yield return new WaitForSeconds(TimeBetweenRounds);
         StartRound();
     }
 
@@ -98,5 +119,17 @@ public class RoundManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void RefillPies()
+    {
+        foreach (PieSpot spot in pieSpots)
+        {
+            if (!spot.HasPie())
+            {
+                Pie newPie = Instantiate(NormalPiePrefab, spot.transform.position, Quaternion.identity);
+                spot.SetCurrentPie(newPie);
+            }
+        }
     }
 }

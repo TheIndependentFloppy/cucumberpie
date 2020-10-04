@@ -20,6 +20,7 @@ public class Human : MonoBehaviour
     private SpriteRenderer spriteRend;
 
     private bool isLeaving = false;
+    private bool hasBoughtPie = false;
 
     private void Awake()
     {
@@ -52,6 +53,11 @@ public class Human : MonoBehaviour
             }
             else
             {
+                if (!hasBoughtPie)
+                {
+                    GameManager.Instance.GetMoneyManager().SellPie();
+                    hasBoughtPie = true;
+                }
                 MoveOutsideScreen();
                 if (!spriteRend.isVisible)
                 {

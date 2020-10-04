@@ -49,8 +49,9 @@ MonoBehaviour:
   - {fileID: 4768519785833055598, guid: 885a96f9671f6444793575bbeb80774b, type: 3}
   - {fileID: 4768519785833055598, guid: 212408cbf77cfb341b74805d37cf94ee, type: 3}
   - {fileID: 4768519785833055598, guid: 85914f4ee7f1cff45b72683396cf9b9d, type: 3}
+  TimeBeforeStealing: 1
   MinTimeBeforeSpawn: 1
   MaxTimeBeforeSpawn: 2
   StepSpawnByLevel: 0.1
-  StepBreakByLevel: 0.1
+  StepBreakByLevel: 0.03
   MinTime: 0.001

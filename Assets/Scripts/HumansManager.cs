@@ -14,7 +14,6 @@ public class HumansManager : MonoBehaviour
     public float MaxTimeBeforeSpawn = 2f;
 
     public float StepSpawnByLevel = 0.1f;
-    public float StepBreakByLevel = 0.1f;
     public float MinTime = 0.001f;
 
     private float timer = 0f;
@@ -49,6 +48,20 @@ public class HumansManager : MonoBehaviour
     {
         timer = 0f;
         spawnTime = UnityEngine.Random.Range(MinTimeBeforeSpawn, MaxTimeBeforeSpawn);
+    }
+
+    public void UpdateFrequency()
+    {
+        MinTimeBeforeSpawn -= StepSpawnByLevel;
+        if (MinTimeBeforeSpawn < MinTime)
+        {
+            MinTimeBeforeSpawn = MinTime;
+        }
+        MaxTimeBeforeSpawn -= StepSpawnByLevel;
+        if (MaxTimeBeforeSpawn < MinTime)
+        {
+            MaxTimeBeforeSpawn = MinTime;
+        }
     }
 
     private void SpawnHumanInRandomSpot()

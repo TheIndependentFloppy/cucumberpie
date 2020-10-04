@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private BunnyManager bunnyManagerInstance;
     private RoundManager roundManagerInstance;
     private HumansManager humansManagerInstance;
+    private MoneyManager moneyManagerInstance;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
         bunnyManagerInstance = GetComponentInChildren<BunnyManager>();
         roundManagerInstance = GetComponentInChildren<RoundManager>();
         humansManagerInstance = GetComponentInChildren<HumansManager>();
+        moneyManagerInstance = GetComponentInChildren<MoneyManager>();
     }
 
     public BunnyManager GetBunnyManager()
@@ -40,5 +42,10 @@ public class GameManager : MonoBehaviour
     public HumansManager GetHumansManager()
     {
         return humansManagerInstance;
+    }
+
+    public MoneyManager GetMoneyManager()
+    {
+        return moneyManagerInstance;
     }
 }

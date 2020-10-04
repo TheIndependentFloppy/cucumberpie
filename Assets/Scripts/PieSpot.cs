@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PieSpot : MonoBehaviour
 {
     public bool IsProtected = false;
+    public Button RepairButton = null;
 
     private bool isCurrentProtectionActive = true;
     private SpriteMask brokenGlassMask;
@@ -16,6 +18,7 @@ public class PieSpot : MonoBehaviour
         {
             brokenGlassMask = transform.GetChild(0).GetComponent<SpriteMask>();
             brokenGlassMask.enabled = false;
+            RepairButton.gameObject.SetActive(false);
         }
     }
 
@@ -49,7 +52,7 @@ public class PieSpot : MonoBehaviour
         brokenGlassMask.enabled = true;
     }
 
-    public void RepairProtection()
+    private void RepairProtection()
     {
         isCurrentProtectionActive = true;
         brokenGlassMask.enabled = false;
@@ -58,5 +61,39 @@ public class PieSpot : MonoBehaviour
     private void StealPie()
     {
         Destroy(currentPie.gameObject);
+    }
+
+    public void ShowRepairButton()
+    {
+        if (IsProtected && !isCurrentProtectionActive)
+        {
+            RepairButton.gameObject.SetActive(true);
+            SetIsRepairButtonInteractable(GameManager.Instance.GetMoneyManager().GetCurrentMoney() >= GameManager.Instance.GetMoneyManager().PriceRepair);
+        }
+    }
+
+    public void HideRepairButton()
+    {
+        if (IsProtected)
+        {
+            RepairButton.gameObject.SetActive(false);
+        }
+    }
+
+    public void Repair()
+    {
+        if (GameManager.Instance.GetMoneyManager().TryRepair())
+        { 
+            RepairProtection();
+            HideRepairButton();
+        }
+    }
+
+    public void SetIsRepairButtonInteractable(bool state)
+    {
+        if (IsProtected)
+        {
+            RepairButton.interactable = state;
+        }
     }
 }
