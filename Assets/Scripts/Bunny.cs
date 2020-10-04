@@ -6,6 +6,7 @@ public class Bunny : MonoBehaviour
     public float TimeBeforeChangingSprite = 0.5f;
     public Sprite ActionSprite = null;
     public Sprite DeadSprite = null;
+    public Sprite VictorySprite = null;
 
     private Sprite startingSprite = null;
 
@@ -34,6 +35,7 @@ public class Bunny : MonoBehaviour
         {
             if (currentSpot.TryStealPie())
             {
+                spriteRend.sprite = VictorySprite;
                 StartCoroutine(Leave());
             }
             else
@@ -53,7 +55,6 @@ public class Bunny : MonoBehaviour
     private IEnumerator Leave()
     {
         isLeaving = true;
-        spriteRend.sprite = DeadSprite;
         yield return new WaitForSeconds(TimeBeforeChangingSprite);
         GameManager.Instance.GetBunnyManager().RemoveBunny(this);
         Destroy(gameObject);
@@ -77,6 +78,9 @@ public class Bunny : MonoBehaviour
 
     public void OnMouseDown()
     {
+        if (isLeaving)
+            return;
+        spriteRend.sprite = DeadSprite;
         StartCoroutine(Leave());
     }
 }

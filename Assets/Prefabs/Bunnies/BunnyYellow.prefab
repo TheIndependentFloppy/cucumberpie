@@ -96,9 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8643b241202e1454cae5987cb50033cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBeforeStealing: 1
   TimeBeforeChangingSprite: 0.5
-  ActionSprite: {fileID: 21300000, guid: e9e6765fb4462df45965b39adef964c2, type: 3}
+  ActionSprite: {fileID: 21300000, guid: 30791156e103def4e9e7928fc7d2ec01, type: 3}
+  DeadSprite: {fileID: 21300000, guid: 8d4722a6ee393a440bbcc5ef544a4f52, type: 3}
+  VictorySprite: {fileID: 21300000, guid: e9e6765fb4462df45965b39adef964c2, type: 3}
 --- !u!60 &8531053423777668296
 PolygonCollider2D:
   m_ObjectHideFlags: 0
