@@ -43,6 +43,8 @@ public class MoneyManager : MonoBehaviour
         PieSpot[] spots = GameManager.Instance.GetRoundManager().GetAllPieSpots();
         foreach (PieSpot spot in spots)
         {
+            spot.SetIsReplacePieButtonInteractable(currentMoney >= ReplacePiePrice);
+            spot.SetIsRepairButtonInteractable(currentMoney >= PriceRepair);
             spot.ShowRepairButton();
         }
     }
