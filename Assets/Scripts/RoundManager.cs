@@ -73,7 +73,7 @@ public class RoundManager : MonoBehaviour
         GameManager.Instance.GetBunnyManager().UpdateFrequency();
         GameManager.Instance.GetMoneyManager().HideRepairMenu();
 
-        RefillPies();
+        //RefillPies();
 
         UIText.gameObject.SetActive(false);
         GameManager.Instance.GetBunnyManager().StartManager();
@@ -97,8 +97,7 @@ public class RoundManager : MonoBehaviour
     {
         foreach (PieSpot spot in pieSpots)
         {
-            Pie newPie = Instantiate(NormalPiePrefab, spot.transform.position, Quaternion.identity);
-            spot.SetCurrentPie(newPie);
+            spot.InitPie(NormalPiePrefab);
         }
         yield return new WaitForSeconds(TimeBetweenRounds);
         StartRound();
@@ -121,14 +120,38 @@ public class RoundManager : MonoBehaviour
         return false;
     }
 
+    private PieSpot GetRandomPieSpot()
+    {
+        List<PieSpot> availableSpot = new List<PieSpot>();
+        foreach (PieSpot spot in pieSpots)
+        {
+            if (spot.HasPie())
+            {
+                availableSpot.Add(spot);
+            }
+        }
+        if (availableSpot.Count == 0)
+            return null;
+        return availableSpot[UnityEngine.Random.Range(0, availableSpot.Count)];
+    }
+
+    public void SellPie()
+    {
+        PieSpot spot = GetRandomPieSpot();
+        if (spot != null)
+        {
+            spot.RemovePie();
+            GameManager.Instance.GetMoneyManager().SellPie();
+        }
+    }
+
     private void RefillPies()
     {
         foreach (PieSpot spot in pieSpots)
         {
             if (!spot.HasPie())
             {
-                Pie newPie = Instantiate(NormalPiePrefab, spot.transform.position, Quaternion.identity);
-                spot.SetCurrentPie(newPie);
+                spot.ReplacePie(NormalPiePrefab);
             }
         }
     }

@@ -30,6 +30,11 @@ public class Bunny : MonoBehaviour
         if (isLeaving)
             return;
 
+        if (!currentSpot.HasPie())
+        {
+            StartCoroutine(Leave());
+        }
+
         timer = Mathf.Min(timer + Time.deltaTime, timeBeforeStealing);
         if (timer.Equals(timeBeforeStealing))
         {

@@ -10,6 +10,7 @@ public class MoneyManager : MonoBehaviour
     public int PiePrice = 12;
     public int PriceRepair = 33;
     public int MalusCustomer = 40;
+    public int ReplacePiePrice = 5;
 
     private int currentMoney = 0;
 
@@ -52,7 +53,7 @@ public class MoneyManager : MonoBehaviour
         PieSpot[] spots = GameManager.Instance.GetRoundManager().GetAllPieSpots();
         foreach (PieSpot spot in spots)
         {
-            spot.HideRepairButton();
+            spot.HideButtons();
         }
     }
 
@@ -76,12 +77,36 @@ public class MoneyManager : MonoBehaviour
         return false;
     }
 
+    public bool TryReplacePie()
+    {
+        if (currentMoney >= ReplacePiePrice)
+        {
+            currentMoney -= ReplacePiePrice;
+            RefreshMoneyText();
+            if (currentMoney < ReplacePiePrice)
+            {
+                DisableReplacePieButtons();
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void DisableRepairButtons()
     {
         PieSpot[] spots = GameManager.Instance.GetRoundManager().GetAllPieSpots();
         foreach (PieSpot spot in spots)
         {
             spot.SetIsRepairButtonInteractable(false);
+        }
+    }
+
+    private void DisableReplacePieButtons()
+    {
+        PieSpot[] spots = GameManager.Instance.GetRoundManager().GetAllPieSpots();
+        foreach (PieSpot spot in spots)
+        {
+            spot.SetIsReplacePieButtonInteractable(false);
         }
     }
 }

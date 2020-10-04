@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using Unity.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PieSpot : MonoBehaviour
 {
     public bool IsProtected = false;
     public Button RepairButton = null;
+    public Button ReplacePieButton = null;
 
     private bool isCurrentProtectionActive = true;
     private SpriteMask brokenGlassMask;
@@ -14,17 +16,16 @@ public class PieSpot : MonoBehaviour
 
     private void Awake()
     {
-        if (transform.childCount > 0)
+        brokenGlassMask = GetComponentInChildren<SpriteMask>();
+        if (brokenGlassMask != null)
         {
-            brokenGlassMask = transform.GetChild(0).GetComponent<SpriteMask>();
             brokenGlassMask.enabled = false;
+        }
+        if (RepairButton != null)
+        {
             RepairButton.gameObject.SetActive(false);
         }
-    }
-
-    public void SetCurrentPie(Pie newPie)
-    {
-        currentPie = newPie;
+        ReplacePieButton.gameObject.SetActive(false);
     }
 
     public bool HasPie()
@@ -41,7 +42,7 @@ public class PieSpot : MonoBehaviour
         }
         else
         {
-            StealPie();
+            RemovePie();
             return true;
         }
     }
@@ -58,7 +59,7 @@ public class PieSpot : MonoBehaviour
         brokenGlassMask.enabled = false;
     }
 
-    private void StealPie()
+    public void RemovePie()
     {
         Destroy(currentPie.gameObject);
     }
@@ -70,14 +71,19 @@ public class PieSpot : MonoBehaviour
             RepairButton.gameObject.SetActive(true);
             SetIsRepairButtonInteractable(GameManager.Instance.GetMoneyManager().GetCurrentMoney() >= GameManager.Instance.GetMoneyManager().PriceRepair);
         }
+        else if (currentPie == null)
+        {
+            ReplacePieButton.gameObject.SetActive(true);
+        }
     }
 
-    public void HideRepairButton()
+    public void HideButtons()
     {
         if (IsProtected)
         {
             RepairButton.gameObject.SetActive(false);
         }
+        ReplacePieButton.gameObject.SetActive(false);
     }
 
     public void Repair()
@@ -85,7 +91,11 @@ public class PieSpot : MonoBehaviour
         if (GameManager.Instance.GetMoneyManager().TryRepair())
         { 
             RepairProtection();
-            HideRepairButton();
+            RepairButton.gameObject.SetActive(false);
+            if (currentPie == null)
+            {
+                ReplacePieButton.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -94,6 +104,27 @@ public class PieSpot : MonoBehaviour
         if (IsProtected)
         {
             RepairButton.interactable = state;
+        }
+    }
+
+    public void SetIsReplacePieButtonInteractable(bool state)
+    {
+        ReplacePieButton.interactable = state;
+    }
+
+    public void InitPie(Pie piePrefab)
+    {
+        Pie newPie = Instantiate(piePrefab, transform.position, Quaternion.identity);
+        currentPie = newPie;
+    }
+
+    public void ReplacePie(Pie piePrefab)
+    {
+        if (GameManager.Instance.GetMoneyManager().TryReplacePie())
+        {
+            Pie newPie = Instantiate(piePrefab, transform.position, Quaternion.identity);
+            currentPie = newPie;
+            ReplacePieButton.gameObject.SetActive(false);
         }
     }
 }

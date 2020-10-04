@@ -11,6 +11,7 @@ public class Human : MonoBehaviour
     public Sprite HurtSprite;
 
     public AudioClip[] HurtSounds;
+    public AudioClip BuyPieSound;
 
     private AudioSource audioSource;
 
@@ -60,7 +61,8 @@ public class Human : MonoBehaviour
             {
                 if (!hasBoughtPie)
                 {
-                    GameManager.Instance.GetMoneyManager().SellPie();
+                    audioSource.PlayOneShot(BuyPieSound);
+                    GameManager.Instance.GetRoundManager().SellPie();
                     hasBoughtPie = true;
                 }
                 MoveOutsideScreen();
