@@ -7,6 +7,9 @@ public class IntroClickBunny : MonoBehaviour, IPointerClickHandler
     public GameObject Menu;
     public GameObject IntroText;
 
+    public AudioClip Gnah;
+    public AudioClip ClickSound;
+
     private Animator anim;
     private AudioSource audioSource;
 
@@ -29,8 +32,13 @@ public class IntroClickBunny : MonoBehaviour, IPointerClickHandler
         IntroText.SetActive(true);
     }
 
-    public void PlaySound()
+    public void PlayGnahSound()
     {
-        audioSource.Play();
+        audioSource.PlayOneShot(Gnah);
+    }
+
+    public void PlayClickSound()
+    {
+        audioSource.PlayOneShot(ClickSound);
     }
 }
