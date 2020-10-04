@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RoundManager : MonoBehaviour
@@ -41,8 +42,10 @@ public class RoundManager : MonoBehaviour
             if (!IsAnyPieLeft())
             {
                 UIText.gameObject.SetActive(true);
-                UIText.text = "Game Over";
+                Score.Instance.Rounds = currentRound;
+                Score.Instance.Money = GameManager.Instance.GetMoneyManager().GetCurrentMoney();
                 StopRound();
+                SceneManager.LoadScene("Score");
                 return;
             }
 
@@ -53,14 +56,6 @@ public class RoundManager : MonoBehaviour
                 UIText.gameObject.SetActive(true);
             }
         }
-        /*else
-        {
-            timer = Math.Min(timer + Time.deltaTime, TimeBetweenRounds);
-            if (timer.Equals(TimeBetweenRounds) && !GameManager.Instance.GetMoneyManager().IsInRepairMenu())
-            {
-
-            }
-        }*/
     }
 
     public void StartRound()
@@ -72,8 +67,6 @@ public class RoundManager : MonoBehaviour
 
         GameManager.Instance.GetBunnyManager().UpdateFrequency();
         GameManager.Instance.GetMoneyManager().HideRepairMenu();
-
-        //RefillPies();
 
         UIText.gameObject.SetActive(false);
         GameManager.Instance.GetBunnyManager().StartManager();

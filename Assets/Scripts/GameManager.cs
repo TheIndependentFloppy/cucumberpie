@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
         else if (Instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
-
         bunnyManagerInstance = GetComponentInChildren<BunnyManager>();
         roundManagerInstance = GetComponentInChildren<RoundManager>();
         humansManagerInstance = GetComponentInChildren<HumansManager>();
