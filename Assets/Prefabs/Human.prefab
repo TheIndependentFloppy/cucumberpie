@@ -185,6 +185,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fd98cf3c82829ba4498906bc98ba526f, type: 3}
   - {fileID: 8300000, guid: 1301b120610b0ed4e8c2f621dbe09489, type: 3}
   - {fileID: 8300000, guid: 427edfee133789c40b335cd2eeb2850a, type: 3}
+  BuyPieSound: {fileID: 8300000, guid: e6766b005381c314cb76a14776eeb87f, type: 3}
 --- !u!82 &6929717438651879951
 AudioSource:
   m_ObjectHideFlags: 0

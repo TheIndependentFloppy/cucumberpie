@@ -72,6 +72,10 @@ public class MoneyManager : MonoBehaviour
             {
                 DisableRepairButtons();
             }
+            if (currentMoney < ReplacePiePrice)
+            {
+                DisableReplacePieButtons();
+            }
             return true;
         }
         return false;
