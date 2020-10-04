@@ -16,6 +16,7 @@ public class IntroClickBunny : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         anim.SetTrigger("IsTouched");
+        PlayClickSound();
         StartCoroutine(StartTextIntro());
     }
 

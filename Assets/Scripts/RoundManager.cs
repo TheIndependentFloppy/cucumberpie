@@ -19,11 +19,16 @@ public class RoundManager : MonoBehaviour
 
     public Pie NormalPiePrefab;
 
+    public AudioClip EndRound;
+    public AudioClip BeginRound;
+
     private PieSpot[] pieSpots;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         pieSpots = FindObjectsOfType<PieSpot>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -76,6 +81,7 @@ public class RoundManager : MonoBehaviour
 
     public void StopRound()
     {
+        audioSource.PlayOneShot(EndRound);
         GameManager.Instance.GetMoneyManager().ShowRepairMenu();
 
         GameManager.Instance.GetBunnyManager().StopManager();
@@ -88,6 +94,7 @@ public class RoundManager : MonoBehaviour
 
     private IEnumerator InitFirstRound()
     {
+        audioSource.PlayOneShot(BeginRound);
         foreach (PieSpot spot in pieSpots)
         {
             spot.InitPie(NormalPiePrefab);

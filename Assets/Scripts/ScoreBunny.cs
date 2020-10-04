@@ -8,6 +8,9 @@ public class ScoreBunny : MonoBehaviour, IPointerClickHandler
 {
     public Text ScoreText;
 
+    public AudioClip Mlem;
+    public AudioClip Outch;
+
     private Animator anim;
     private AudioSource audioSource;
 
@@ -23,6 +26,7 @@ public class ScoreBunny : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        PlayOutchSound();
         anim.SetTrigger("IsTouched");
         StartCoroutine(RestartGame());
     }
@@ -33,8 +37,13 @@ public class ScoreBunny : MonoBehaviour, IPointerClickHandler
         SceneManager.LoadScene("Game");
     }
 
-    public void PlaySound()
+    public void PlayMlemSound()
     {
-        audioSource.Play();
+        audioSource.PlayOneShot(Mlem);
+    }
+
+    public void PlayOutchSound()
+    {
+        audioSource.PlayOneShot(Outch);
     }
 }

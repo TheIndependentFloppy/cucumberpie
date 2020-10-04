@@ -52,6 +52,6 @@ MonoBehaviour:
   TimeBeforeStealing: 1
   MinTimeBeforeSpawn: 1
   MaxTimeBeforeSpawn: 2
-  StepSpawnByLevel: 0.1
+  StepSpawnByLevel: 0.2
   StepBreakByLevel: 0.03
   MinTime: 0.001

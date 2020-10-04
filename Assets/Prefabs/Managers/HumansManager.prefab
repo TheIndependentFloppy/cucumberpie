@@ -47,8 +47,7 @@ MonoBehaviour:
   - {fileID: 5446763298004053459, guid: 444beffa13e9b4d48acedf2f4ecb4c84, type: 3}
   HumansSpots: []
   SpawnPoints: []
-  MinTimeBeforeSpawn: 6
-  MaxTimeBeforeSpawn: 10
-  StepSpawnByLevel: 0.1
-  StepBreakByLevel: 0.1
+  MinTimeBeforeSpawn: 3
+  MaxTimeBeforeSpawn: 6
+  StepSpawnByLevel: 0.2
   MinTime: 0.001
