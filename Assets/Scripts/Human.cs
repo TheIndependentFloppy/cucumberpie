@@ -10,6 +10,10 @@ public class Human : MonoBehaviour
 
     public Sprite HurtSprite;
 
+    public AudioClip[] HurtSounds;
+
+    private AudioSource audioSource;
+
     private float timer = 0f;
 
     private Vector3 startingPosition;
@@ -25,6 +29,7 @@ public class Human : MonoBehaviour
     private void Awake()
     {
         spriteRend = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         startingPosition = transform.position;
     }
@@ -80,6 +85,7 @@ public class Human : MonoBehaviour
 
     private void OnMouseDown()
     {
+        audioSource.PlayOneShot(HurtSounds[Random.Range(0, HurtSounds.Length)]);
         StartCoroutine(Leave());
     }
 
